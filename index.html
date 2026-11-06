@@ -118,7 +118,8 @@ window.loadSurvey = function(c){
 /* ===== Điều hướng và hiển thị ===== */
 function go(i){
   idx = i; const n = cfg.questions.length;
-  const m = app.cloneNode(false); app.replaceWith(m); m.id = 'app';
+  const old = document.getElementById('app'), m = old.cloneNode(false);
+  old.replaceWith(m);
   $('#back').hidden = !(i > 0 && i < n);
   $('#back').onclick = () => go(idx - 1);
   $('#prog').style.width = Math.max(0, Math.min(i, n)) / n * 100 + '%';
