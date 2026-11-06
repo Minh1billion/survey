@@ -2,7 +2,7 @@
   "version": "1.0",
   "title": "Khảo sát trải nghiệm học online",
   "intro": "Khoảng 3 phút, mỗi lần một câu. Chọn theo cảm nhận đầu tiên của bạn.",
-  "endpoint": "",
+  "endpoint": "https://script.google.com/macros/s/AKfycbxX-zQTUcOVCWF4ZvmzsGDl-V-Vy4bPYgIZvnAzUvKiWJP8RwBgyFAd_X-7mnajkJA5/exec",
   "questions": [
     {
       "id": "q1",
