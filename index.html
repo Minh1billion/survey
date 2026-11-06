@@ -61,34 +61,249 @@ textarea{width:100%;min-height:150px;border:0;border-radius:6px;padding:14px;fon
 /* ===== Bộ câu hỏi mặc định. Có thể thay bằng questions.json, ?src=đường-dẫn, hoặc gọi loadSurvey(json) =====
    Loại: single (một đáp án), multi (nhiều đáp án, có max), scale (min..max), text (mở). "optional": true nếu không bắt buộc. */
 const DEFAULT = {
-  version: "1.0",
-  title: "Khảo sát trải nghiệm học online",
-  intro: "Khoảng 3 phút, mỗi lần một câu. Chọn theo cảm nhận đầu tiên của bạn.",
-  endpoint: "",
-  questions: [
-    {id:"q1",section:"Về bạn",type:"single",text:"Bạn học trên web này chủ yếu để làm gì?",options:["Nâng cao kỹ năng công việc","Chuyển nghề","Thi chứng chỉ","Sở thích cá nhân","Khác"]},
-    {id:"q2",type:"single",text:"Bạn thường học bằng thiết bị nào?",options:["Điện thoại","Máy tính bảng","Máy tính","Tùy lúc"]},
-    {id:"q3",type:"single",text:"Mỗi lần học, bạn thường học bao lâu?",options:["Dưới 15 phút","15 đến 30 phút","30 đến 60 phút","Trên 60 phút"]},
-    {id:"q4",section:"Tìm và chọn khóa học",type:"scale",min:1,max:5,minLabel:"Rất khó",maxLabel:"Rất dễ",text:"Bạn thấy việc tìm được khóa học mình cần dễ đến mức nào?"},
-    {id:"q5",type:"multi",max:2,text:"Khi chọn khóa học, bạn dựa vào điều gì nhất?",options:["Giá","Giảng viên","Đánh giá của người học","Mô tả nội dung","Học thử miễn phí","Chứng chỉ","Khác"]},
-    {id:"q6",type:"single",text:"Trang giới thiệu khóa học đã đủ thông tin để bạn quyết định chưa?",options:["Đủ","Tạm đủ","Còn thiếu"]},
-    {id:"q6b",type:"text",optional:true,text:"Nếu còn thiếu, bạn muốn xem thêm gì?"},
-    {id:"q7",section:"Đăng ký và thanh toán",type:"scale",min:1,max:5,minLabel:"Rất rườm rà",maxLabel:"Rất thuận tiện",text:"Việc đăng ký tài khoản và thanh toán thuận tiện đến mức nào?"},
-    {id:"q8",type:"single",text:"Bạn từng định mua khóa học nhưng bỏ dở giữa chừng chưa? Lý do chính là gì?",options:["Chưa từng","Giá cao","Thanh toán rắc rối","Chưa đủ tin tưởng","Cần so sánh thêm","Khác"]},
-    {id:"q9",section:"Trải nghiệm học",type:"scale",min:1,max:5,minLabel:"Rất tệ",maxLabel:"Rất tốt",text:"Video bài giảng xem có mượt và rõ ràng không?"},
-    {id:"q10",type:"single",text:"Theo bạn, một video bài giảng dài bao lâu là vừa?",options:["Dưới 5 phút","5 đến 10 phút","10 đến 20 phút","Trên 20 phút"]},
-    {id:"q11",type:"scale",min:1,max:5,minLabel:"Rất khó",maxLabel:"Rất dễ",text:"Quay lại học tiếp đúng chỗ đang học dở có dễ không?"},
-    {id:"q12",type:"multi",text:"Bạn đã dùng những tính năng nào?",options:["Ghi chú","Tải tài liệu","Bài kiểm tra","Hỏi đáp với giảng viên","Chứng chỉ","Chỉnh tốc độ video","Khác"]},
-    {id:"q13",type:"scale",min:1,max:5,minLabel:"Không giúp gì",maxLabel:"Giúp rất nhiều",text:"Bài tập và bài kiểm tra giúp bạn hiểu bài đến mức nào?"},
-    {id:"q14",type:"single",text:"Khi gặp chỗ không hiểu, bạn thường làm gì?",options:["Hỏi ngay trong khóa học","Tìm câu trả lời bên ngoài","Tạm bỏ qua","Ngừng học"]},
-    {id:"q15",type:"single",text:"Bạn từng ngừng học một khóa giữa chừng chưa? Lý do chính là gì?",options:["Chưa từng","Hết thời gian","Nội dung không phù hợp","Khó theo dõi","Mất động lực","Web khó dùng","Khác"]},
-    {id:"q16",section:"Đánh giá chung",type:"scale",min:0,max:10,minLabel:"Không bao giờ",maxLabel:"Chắc chắn có",text:"Bạn sẵn lòng giới thiệu web này cho bạn bè đến mức nào?"},
-    {id:"q17",type:"scale",min:1,max:5,minLabel:"Rất không hài lòng",maxLabel:"Rất hài lòng",text:"Nhìn chung, bạn hài lòng với trải nghiệm trên web đến mức nào?"},
-    {id:"q18",type:"text",optional:true,text:"Nếu chỉ được sửa một điều trên web, bạn muốn sửa điều gì?"}
+  "version": "2.0",
+  "title": "Bạn muốn học online thế nào?",
+  "intro": "Khoảng 3 phút, mỗi lần một câu. Không có đáp án đúng hay sai, cứ chọn theo cảm nhận đầu tiên.",
+  "endpoint": "https://script.google.com/macros/s/AKfycbxX-zQTUcOVCWF4ZvmzsGDl-V-Vy4bPYgIZvnAzUvKiWJP8RwBgyFAd_X-7mnajkJA5/exec",
+  "questions": [
+    {
+      "id": "q1",
+      "section": "Về bạn",
+      "type": "single",
+      "text": "Bạn đã từng học online qua web hoặc ứng dụng chưa?",
+      "options": [
+        "Đang học",
+        "Từng học nhưng đã dừng",
+        "Chưa học, đang muốn thử"
+      ]
+    },
+    {
+      "id": "q2",
+      "type": "single",
+      "text": "Bạn học online chủ yếu để làm gì?",
+      "options": [
+        "Nâng cao kỹ năng công việc",
+        "Chuyển nghề",
+        "Thi chứng chỉ",
+        "Sở thích cá nhân",
+        "Khác"
+      ]
+    },
+    {
+      "id": "q3",
+      "type": "single",
+      "text": "Bạn thường học bằng thiết bị nào?",
+      "options": [
+        "Điện thoại",
+        "Máy tính bảng",
+        "Máy tính",
+        "Tùy lúc"
+      ]
+    },
+    {
+      "id": "q4",
+      "type": "single",
+      "text": "Mỗi lần học, bạn thích học khoảng bao lâu?",
+      "options": [
+        "Dưới 15 phút",
+        "15 đến 30 phút",
+        "30 đến 60 phút",
+        "Trên 60 phút"
+      ]
+    },
+    {
+      "id": "q5",
+      "section": "Tìm và chọn khóa học",
+      "type": "multi",
+      "max": 2,
+      "text": "Khi chọn khóa học, điều gì khiến bạn quyết định nhất?",
+      "options": [
+        "Giá",
+        "Giảng viên",
+        "Đánh giá của người học",
+        "Mô tả nội dung",
+        "Học thử miễn phí",
+        "Chứng chỉ",
+        "Khác"
+      ]
+    },
+    {
+      "id": "q6",
+      "type": "single",
+      "text": "Bạn thích tìm khóa học theo cách nào?",
+      "options": [
+        "Gõ từ khóa tìm kiếm",
+        "Duyệt theo chủ đề",
+        "Nhận gợi ý theo nhu cầu của tôi",
+        "Trả lời vài câu hỏi để được chọn giúp"
+      ]
+    },
+    {
+      "id": "q7",
+      "type": "single",
+      "text": "Trước khi mua, bạn muốn xem thử điều gì?",
+      "options": [
+        "Video học thử",
+        "Một bài học hoàn chỉnh",
+        "Đề cương chi tiết",
+        "Đánh giá của người học",
+        "Không cần xem thử"
+      ]
+    },
+    {
+      "id": "q8",
+      "section": "Mua khóa học",
+      "type": "single",
+      "text": "Bạn từng định mua khóa học nhưng bỏ dở giữa chừng chưa? Lý do chính là gì?",
+      "options": [
+        "Chưa từng",
+        "Giá cao",
+        "Thanh toán rắc rối",
+        "Chưa đủ tin tưởng",
+        "Cần so sánh thêm",
+        "Khác"
+      ]
+    },
+    {
+      "id": "q9",
+      "type": "single",
+      "text": "Bạn thích trả tiền theo cách nào?",
+      "options": [
+        "Mua lẻ từng khóa",
+        "Thuê bao theo tháng",
+        "Thuê bao theo năm",
+        "Học miễn phí, chỉ trả khi lấy chứng chỉ"
+      ]
+    },
+    {
+      "id": "q10",
+      "section": "Cách học",
+      "type": "single",
+      "text": "Một video bài giảng dài bao lâu là vừa?",
+      "options": [
+        "Dưới 5 phút",
+        "5 đến 10 phút",
+        "10 đến 20 phút",
+        "Trên 20 phút"
+      ]
+    },
+    {
+      "id": "q11",
+      "type": "single",
+      "text": "Bạn thích học theo dạng nào nhất?",
+      "options": [
+        "Xem video",
+        "Đọc chữ có hình minh họa",
+        "Nghe âm thanh",
+        "Làm bài thực hành ngay"
+      ]
+    },
+    {
+      "id": "q12",
+      "type": "multi",
+      "text": "Bạn muốn có những tính năng nào khi học?",
+      "options": [
+        "Ghi chú ngay trên bài",
+        "Tải tài liệu",
+        "Câu hỏi nhỏ sau mỗi bài",
+        "Hỏi đáp với giảng viên",
+        "Chứng chỉ",
+        "Chỉnh tốc độ video",
+        "Tải bài về học không cần mạng",
+        "Nhắc lịch học"
+      ]
+    },
+    {
+      "id": "q13",
+      "type": "single",
+      "text": "Khi gặp chỗ không hiểu, bạn muốn được giúp bằng cách nào?",
+      "options": [
+        "Hỏi giảng viên",
+        "Hỏi cộng đồng người học",
+        "Có trợ lý trả lời ngay",
+        "Xem lại phần giải thích khác",
+        "Tự tìm bên ngoài"
+      ]
+    },
+    {
+      "id": "q14",
+      "type": "scale",
+      "min": 1,
+      "max": 5,
+      "minLabel": "Không quan trọng",
+      "maxLabel": "Rất quan trọng",
+      "text": "Quay lại học tiếp đúng chỗ đang học dở quan trọng với bạn đến mức nào?"
+    },
+    {
+      "id": "q15",
+      "type": "scale",
+      "min": 1,
+      "max": 5,
+      "minLabel": "Không quan trọng",
+      "maxLabel": "Rất quan trọng",
+      "text": "Bài tập và bài kiểm tra quan trọng với bạn đến mức nào?"
+    },
+    {
+      "id": "q16",
+      "type": "scale",
+      "min": 1,
+      "max": 5,
+      "minLabel": "Không tạo động lực",
+      "maxLabel": "Rất tạo động lực",
+      "text": "Thấy tiến độ học của mình (phần trăm hoàn thành, huy hiệu) tạo động lực cho bạn đến mức nào?"
+    },
+    {
+      "id": "q17",
+      "section": "Điều khó chịu và động lực",
+      "type": "multi",
+      "max": 2,
+      "text": "Điều gì làm bạn khó chịu nhất khi học online?",
+      "options": [
+        "Trang tải chậm",
+        "Video bị giật",
+        "Khó tìm khóa phù hợp",
+        "Thanh toán nhiều bước",
+        "Bị chào mời quá nhiều",
+        "Không biết học tiếp từ đâu",
+        "Khó dùng trên điện thoại"
+      ]
+    },
+    {
+      "id": "q18",
+      "type": "single",
+      "text": "Bạn từng ngừng học một khóa giữa chừng chưa? Lý do chính là gì?",
+      "options": [
+        "Chưa từng",
+        "Hết thời gian",
+        "Nội dung không phù hợp",
+        "Khó theo dõi",
+        "Mất động lực",
+        "Giao diện khó dùng",
+        "Khác"
+      ]
+    },
+    {
+      "id": "q19",
+      "type": "single",
+      "text": "Bạn muốn được nhắc học bằng cách nào?",
+      "options": [
+        "Thông báo trên điện thoại",
+        "Email",
+        "Tin nhắn Zalo hoặc SMS",
+        "Không cần nhắc"
+      ]
+    },
+    {
+      "id": "q20",
+      "type": "text",
+      "optional": true,
+      "text": "Nếu được thiết kế một web học online hoàn hảo, bạn muốn nó có điều gì đặc biệt nhất?"
+    }
   ]
 };
 
 const $ = s => document.querySelector(s), app = $('#app');
+const T = s => String(s || '').replace(/\{site\}/g, (cfg && cfg.siteName) || 'trang học này');
 const LS = 'survey_responses', COL = ['#e21b3c','#1368ce','#d89e00','#26890c'], SHP = ['▲','◆','●','■'];
 let cfg, ans = {}, idx = -1;
 
@@ -142,15 +357,16 @@ const next = () => go(idx + 1);
 const has = q => { const v = ans[q.id]; return Array.isArray(v) ? v.length > 0 : (v !== undefined && v !== ''); };
 
 function start(){
-  document.title = cfg.title || document.title;
+  document.title = T(cfg.title) || document.title;
   A().append(h('div',{class:'center'},
     h('div',{class:'logo'}, ...SHP.map(s => h('span',{},s))),
-    h('h1',{},cfg.title||'Khảo sát'),
-    h('p',{},cfg.intro||''),
+    h('h1',{},T(cfg.title)||'Khảo sát'),
+    h('p',{},T(cfg.intro)),
     h('button',{class:'btn big',onclick:next},'Bắt đầu')));
 }
 
 function question(q){
+  q = Object.assign({}, q, {text:T(q.text), options:(q.options||[]).map(T), minLabel:T(q.minLabel), maxLabel:T(q.maxLabel)});
   const m = A(), prev = ans[q.id];
   if (q.section) m.append(h('div',{class:'sec'},q.section));
   const hint = q.type==='multi' ? (q.max ? `Chọn tối đa ${q.max}` : 'Chọn nhiều đáp án') : (q.optional ? 'Không bắt buộc' : '');

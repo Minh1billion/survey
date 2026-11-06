@@ -1,24 +1,38 @@
 {
-  "version": "1.0",
-  "title": "Khảo sát trải nghiệm học online",
-  "intro": "Khoảng 3 phút, mỗi lần một câu. Chọn theo cảm nhận đầu tiên của bạn.",
-  "endpoint": "https://script.google.com/macros/s/AKfycbxX-zQTUcOVCWF4ZvmzsGDl-V-Vy4bPYgIZvnAzUvKiWJP8RwBgyFAd_X-7mnajkJA5/exec",
+  "version": "2.0",
+  "title": "Bạn muốn học online thế nào?",
+  "intro": "Khoảng 3 phút, mỗi lần một câu. Không có đáp án đúng hay sai, cứ chọn theo cảm nhận đầu tiên.",
+  "endpoint": "https://script.google.com/macros/s/AKfycbziZLMWG7jX_4v4qZdef0V_67qQflGe0_x8s2HQJeoAxlAP2A01PnxbuDe8V9r0ThZk/exec",
   "questions": [
     {
       "id": "q1",
       "section": "Về bạn",
       "type": "single",
-      "text": "Bạn học trên web này chủ yếu để làm gì?",
+      "text": "Bạn đã từng học online qua web hoặc ứng dụng chưa?",
+      "options": [
+        "Đang học",
+        "Từng học nhưng đã dừng",
+        "Chưa học, đang muốn thử"
+      ],
+      "idea": "Tách người đã quen học online với người mới để so kỳ vọng của hai nhóm.",
+      "metric": "Tỷ lệ từng nhóm. Nếu nhóm chưa học trên 30% thì cần hướng dẫn bắt đầu thật rõ. Nên đối chiếu các câu sau theo từng nhóm."
+    },
+    {
+      "id": "q2",
+      "type": "single",
+      "text": "Bạn học online chủ yếu để làm gì?",
       "options": [
         "Nâng cao kỹ năng công việc",
         "Chuyển nghề",
         "Thi chứng chỉ",
         "Sở thích cá nhân",
         "Khác"
-      ]
+      ],
+      "idea": "Chia người học theo mục tiêu để biết nên thiết kế cho ai trước.",
+      "metric": "Tỷ lệ từng nhóm. Nhóm trên 50% là trọng tâm thiết kế. Không nhóm nào vượt 35% thì cần linh hoạt cho nhiều mục đích. Nhóm dưới 10% chưa cần đầu tư riêng."
     },
     {
-      "id": "q2",
+      "id": "q3",
       "type": "single",
       "text": "Bạn thường học bằng thiết bị nào?",
       "options": [
@@ -26,34 +40,29 @@
         "Máy tính bảng",
         "Máy tính",
         "Tùy lúc"
-      ]
+      ],
+      "idea": "Quyết định thiết kế cho màn hình nhỏ hay lớn trước.",
+      "metric": "Tỷ lệ dùng điện thoại. Trên 60% thì ưu tiên điện thoại trước. Từ 30 đến 60% cân bằng cả hai. Dưới 30% thì máy tính là trọng tâm."
     },
     {
-      "id": "q3",
+      "id": "q4",
       "type": "single",
-      "text": "Mỗi lần học, bạn thường học bao lâu?",
+      "text": "Mỗi lần học, bạn thích học khoảng bao lâu?",
       "options": [
         "Dưới 15 phút",
         "15 đến 30 phút",
         "30 đến 60 phút",
         "Trên 60 phút"
-      ]
-    },
-    {
-      "id": "q4",
-      "section": "Tìm và chọn khóa học",
-      "type": "scale",
-      "min": 1,
-      "max": 5,
-      "minLabel": "Rất khó",
-      "maxLabel": "Rất dễ",
-      "text": "Bạn thấy việc tìm được khóa học mình cần dễ đến mức nào?"
+      ],
+      "idea": "Biết nhịp học mong muốn để chia bài và đặt nhắc nhở cho hợp lý.",
+      "metric": "Tỷ lệ từng mức. Nhóm dưới 30 phút trên 60% thì chia bài thành phần ngắn, dễ học dở và học tiếp. Nhóm trên 60 phút trên 40% thì thêm tính năng học sâu như ghi chú, tài liệu."
     },
     {
       "id": "q5",
+      "section": "Tìm và chọn khóa học",
       "type": "multi",
       "max": 2,
-      "text": "Khi chọn khóa học, bạn dựa vào điều gì nhất?",
+      "text": "Khi chọn khóa học, điều gì khiến bạn quyết định nhất?",
       "options": [
         "Giá",
         "Giảng viên",
@@ -62,36 +71,40 @@
         "Học thử miễn phí",
         "Chứng chỉ",
         "Khác"
-      ]
+      ],
+      "idea": "Biết yếu tố nào phải đặt nổi bật trên trang giới thiệu khóa học.",
+      "metric": "Tỷ lệ chọn từng yếu tố. Trên 40% thì đặt ở vị trí dễ thấy nhất. Dưới 10% có thể thu gọn cho bớt rối."
     },
     {
       "id": "q6",
       "type": "single",
-      "text": "Trang giới thiệu khóa học đã đủ thông tin để bạn quyết định chưa?",
+      "text": "Bạn thích tìm khóa học theo cách nào?",
       "options": [
-        "Đủ",
-        "Tạm đủ",
-        "Còn thiếu"
-      ]
-    },
-    {
-      "id": "q6b",
-      "type": "text",
-      "optional": true,
-      "text": "Nếu còn thiếu, bạn muốn xem thêm gì?"
+        "Gõ từ khóa tìm kiếm",
+        "Duyệt theo chủ đề",
+        "Nhận gợi ý theo nhu cầu của tôi",
+        "Trả lời vài câu hỏi để được chọn giúp"
+      ],
+      "idea": "Quyết định nên đầu tư vào ô tìm kiếm, danh mục hay gợi ý cá nhân.",
+      "metric": "Cách được chọn nhiều nhất làm trước. Nếu hai cách cuối cộng lại trên 40% thì đáng đầu tư gợi ý cá nhân hóa."
     },
     {
       "id": "q7",
-      "section": "Đăng ký và thanh toán",
-      "type": "scale",
-      "min": 1,
-      "max": 5,
-      "minLabel": "Rất rườm rà",
-      "maxLabel": "Rất thuận tiện",
-      "text": "Việc đăng ký tài khoản và thanh toán thuận tiện đến mức nào?"
+      "type": "single",
+      "text": "Trước khi mua, bạn muốn xem thử điều gì?",
+      "options": [
+        "Video học thử",
+        "Một bài học hoàn chỉnh",
+        "Đề cương chi tiết",
+        "Đánh giá của người học",
+        "Không cần xem thử"
+      ],
+      "idea": "Biết cần dựng phần học thử ra sao để người mua đủ tin tưởng.",
+      "metric": "Trên 50% chọn học thử thì bắt buộc có bài dùng thử. Trên 30% chọn đề cương thì trang giới thiệu phải chi tiết. Nếu đánh giá được chọn nhiều thì cần có đánh giá thật, dễ đọc."
     },
     {
       "id": "q8",
+      "section": "Mua khóa học",
       "type": "single",
       "text": "Bạn từng định mua khóa học nhưng bỏ dở giữa chừng chưa? Lý do chính là gì?",
       "options": [
@@ -101,74 +114,134 @@
         "Chưa đủ tin tưởng",
         "Cần so sánh thêm",
         "Khác"
-      ]
+      ],
+      "idea": "Tìm nguyên nhân người học rời đi đúng lúc sắp mua.",
+      "metric": "Tỷ lệ từng bỏ dở: dưới 20% là bình thường, 20 đến 40% cần rà quy trình, trên 40% là hao hụt lớn. Lý do nhiều nhất cho biết sửa ở đâu: giá thì xem chính sách, thanh toán thì bớt bước, thiếu tin tưởng thì thêm đánh giá và cam kết hoàn tiền."
     },
     {
       "id": "q9",
-      "section": "Trải nghiệm học",
-      "type": "scale",
-      "min": 1,
-      "max": 5,
-      "minLabel": "Rất tệ",
-      "maxLabel": "Rất tốt",
-      "text": "Video bài giảng xem có mượt và rõ ràng không?"
+      "type": "single",
+      "text": "Bạn thích trả tiền theo cách nào?",
+      "options": [
+        "Mua lẻ từng khóa",
+        "Thuê bao theo tháng",
+        "Thuê bao theo năm",
+        "Học miễn phí, chỉ trả khi lấy chứng chỉ"
+      ],
+      "idea": "Chọn mô hình thu phí phù hợp với người học.",
+      "metric": "Mô hình trên 40% là hướng chính. Nếu hai kiểu thuê bao cộng lại trên 40% thì nên cân nhắc gói. Nếu mua lẻ vẫn áp đảo thì bán theo từng khóa."
     },
     {
       "id": "q10",
+      "section": "Cách học",
       "type": "single",
-      "text": "Theo bạn, một video bài giảng dài bao lâu là vừa?",
+      "text": "Một video bài giảng dài bao lâu là vừa?",
       "options": [
         "Dưới 5 phút",
         "5 đến 10 phút",
         "10 đến 20 phút",
         "Trên 20 phút"
-      ]
+      ],
+      "idea": "Quyết định độ dài chuẩn cho mỗi bài giảng.",
+      "metric": "Mức được chọn nhiều nhất là độ dài nên hướng tới. Hơn 50% chọn dưới 10 phút thì nên cắt nhỏ bài giảng."
     },
     {
       "id": "q11",
-      "type": "scale",
-      "min": 1,
-      "max": 5,
-      "minLabel": "Rất khó",
-      "maxLabel": "Rất dễ",
-      "text": "Quay lại học tiếp đúng chỗ đang học dở có dễ không?"
+      "type": "single",
+      "text": "Bạn thích học theo dạng nào nhất?",
+      "options": [
+        "Xem video",
+        "Đọc chữ có hình minh họa",
+        "Nghe âm thanh",
+        "Làm bài thực hành ngay"
+      ],
+      "idea": "Biết nên dồn công sức làm nội dung dạng nào.",
+      "metric": "Dạng trên 40% là nội dung chính. Nếu các dạng không phải video cộng lại trên 40% thì không nên chỉ có video. Dạng dưới 10% làm sau."
     },
     {
       "id": "q12",
       "type": "multi",
-      "text": "Bạn đã dùng những tính năng nào?",
+      "text": "Bạn muốn có những tính năng nào khi học?",
       "options": [
-        "Ghi chú",
+        "Ghi chú ngay trên bài",
         "Tải tài liệu",
-        "Bài kiểm tra",
+        "Câu hỏi nhỏ sau mỗi bài",
         "Hỏi đáp với giảng viên",
         "Chứng chỉ",
         "Chỉnh tốc độ video",
-        "Khác"
-      ]
+        "Tải bài về học không cần mạng",
+        "Nhắc lịch học"
+      ],
+      "idea": "Xếp thứ tự tính năng nên làm trước.",
+      "metric": "Tỷ lệ chọn từng tính năng. Trên 50% là tính năng cốt lõi. Từ 15 đến 50% đưa vào kế hoạch sau. Dưới 15% hoãn lại."
     },
     {
       "id": "q13",
-      "type": "scale",
-      "min": 1,
-      "max": 5,
-      "minLabel": "Không giúp gì",
-      "maxLabel": "Giúp rất nhiều",
-      "text": "Bài tập và bài kiểm tra giúp bạn hiểu bài đến mức nào?"
+      "type": "single",
+      "text": "Khi gặp chỗ không hiểu, bạn muốn được giúp bằng cách nào?",
+      "options": [
+        "Hỏi giảng viên",
+        "Hỏi cộng đồng người học",
+        "Có trợ lý trả lời ngay",
+        "Xem lại phần giải thích khác",
+        "Tự tìm bên ngoài"
+      ],
+      "idea": "Biết nên xây khâu hỗ trợ ngay trong web theo hướng nào.",
+      "metric": "Nếu chọn tự tìm bên ngoài trên 30% thì web đang khó giữ chân người học khi họ vướng. Cách hỗ trợ nào trên 30% thì đáng đầu tư trước."
     },
     {
       "id": "q14",
-      "type": "single",
-      "text": "Khi gặp chỗ không hiểu, bạn thường làm gì?",
-      "options": [
-        "Hỏi ngay trong khóa học",
-        "Tìm câu trả lời bên ngoài",
-        "Tạm bỏ qua",
-        "Ngừng học"
-      ]
+      "type": "scale",
+      "min": 1,
+      "max": 5,
+      "minLabel": "Không quan trọng",
+      "maxLabel": "Rất quan trọng",
+      "text": "Quay lại học tiếp đúng chỗ đang học dở quan trọng với bạn đến mức nào?",
+      "idea": "Đánh giá nhu cầu nhớ tiến độ và lối vào nhanh.",
+      "metric": "Điểm trung bình: dưới 3,5 là ít quan trọng, làm sau; từ 3,5 đến 4,2 là khá quan trọng; trên 4,2 là nhu cầu mạnh, nên ưu tiên. Nếu hơn 25% người chấm 1 hoặc 2 thì có một nhóm đáng kể không cần."
     },
     {
       "id": "q15",
+      "type": "scale",
+      "min": 1,
+      "max": 5,
+      "minLabel": "Không quan trọng",
+      "maxLabel": "Rất quan trọng",
+      "text": "Bài tập và bài kiểm tra quan trọng với bạn đến mức nào?",
+      "idea": "Biết có nên đầu tư mạnh vào khâu luyện tập sau bài giảng.",
+      "metric": "Điểm trung bình: dưới 3,5 là ít quan trọng, làm sau; từ 3,5 đến 4,2 là khá quan trọng; trên 4,2 là nhu cầu mạnh, nên ưu tiên. Nếu hơn 25% người chấm 1 hoặc 2 thì có một nhóm đáng kể không cần."
+    },
+    {
+      "id": "q16",
+      "type": "scale",
+      "min": 1,
+      "max": 5,
+      "minLabel": "Không tạo động lực",
+      "maxLabel": "Rất tạo động lực",
+      "text": "Thấy tiến độ học của mình (phần trăm hoàn thành, huy hiệu) tạo động lực cho bạn đến mức nào?",
+      "idea": "Kiểm tra xem các yếu tố tạo cảm giác tiến bộ có đáng làm không.",
+      "metric": "Điểm trung bình: dưới 3,5 là ít quan trọng, làm sau; từ 3,5 đến 4,2 là khá quan trọng; trên 4,2 là nhu cầu mạnh, nên ưu tiên. Nếu hơn 25% người chấm 1 hoặc 2 thì có một nhóm đáng kể không cần."
+    },
+    {
+      "id": "q17",
+      "section": "Điều khó chịu và động lực",
+      "type": "multi",
+      "max": 2,
+      "text": "Điều gì làm bạn khó chịu nhất khi học online?",
+      "options": [
+        "Trang tải chậm",
+        "Video bị giật",
+        "Khó tìm khóa phù hợp",
+        "Thanh toán nhiều bước",
+        "Bị chào mời quá nhiều",
+        "Không biết học tiếp từ đâu",
+        "Khó dùng trên điện thoại"
+      ],
+      "idea": "Tìm các điểm đau cần tránh khi thiết kế.",
+      "metric": "Tỷ lệ chọn từng điều. Điều trên 30% là điểm đau cần xử lý trước. Dưới 10% ghi nhận để theo dõi."
+    },
+    {
+      "id": "q18",
       "type": "single",
       "text": "Bạn từng ngừng học một khóa giữa chừng chưa? Lý do chính là gì?",
       "options": [
@@ -177,34 +250,32 @@
         "Nội dung không phù hợp",
         "Khó theo dõi",
         "Mất động lực",
-        "Web khó dùng",
+        "Giao diện khó dùng",
         "Khác"
-      ]
+      ],
+      "idea": "Phân biệt lỗi do nội dung với lỗi do thiết kế.",
+      "metric": "Tỷ lệ từng bỏ giữa chừng: dưới 30% là tốt, 30 đến 50% là bình thường, trên 50% là cao. Nếu giao diện khó dùng chiếm trên 15% thì đó là phần thiết kế sửa được ngay."
     },
     {
-      "id": "q16",
-      "section": "Đánh giá chung",
-      "type": "scale",
-      "min": 0,
-      "max": 10,
-      "minLabel": "Không bao giờ",
-      "maxLabel": "Chắc chắn có",
-      "text": "Bạn sẵn lòng giới thiệu web này cho bạn bè đến mức nào?"
+      "id": "q19",
+      "type": "single",
+      "text": "Bạn muốn được nhắc học bằng cách nào?",
+      "options": [
+        "Thông báo trên điện thoại",
+        "Email",
+        "Tin nhắn Zalo hoặc SMS",
+        "Không cần nhắc"
+      ],
+      "idea": "Chọn kênh nhắc nhở phù hợp, hoặc bỏ nếu người học không cần.",
+      "metric": "Kênh trên 40% làm trước. Nếu không cần nhắc trên 40% thì để nhắc nhở ở dạng tùy chọn, không bật sẵn."
     },
     {
-      "id": "q17",
-      "type": "scale",
-      "min": 1,
-      "max": 5,
-      "minLabel": "Rất không hài lòng",
-      "maxLabel": "Rất hài lòng",
-      "text": "Nhìn chung, bạn hài lòng với trải nghiệm trên web đến mức nào?"
-    },
-    {
-      "id": "q18",
+      "id": "q20",
       "type": "text",
       "optional": true,
-      "text": "Nếu chỉ được sửa một điều trên web, bạn muốn sửa điều gì?"
+      "text": "Nếu được thiết kế một web học online hoàn hảo, bạn muốn nó có điều gì đặc biệt nhất?",
+      "idea": "Nghe trực tiếp điều người học mong muốn mà câu đóng chưa bao quát.",
+      "metric": "Phân câu trả lời theo chủ đề và tính tỷ lệ nhắc đến. Chủ đề trên 20% là việc đầu tiên. Từ 10 đến 20% đưa vào kế hoạch sau. Dưới 10% ghi nhận."
     }
   ]
 }
