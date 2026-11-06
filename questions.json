@@ -1,0 +1,210 @@
+{
+  "version": "1.0",
+  "title": "Khảo sát trải nghiệm học online",
+  "intro": "Khoảng 3 phút, mỗi lần một câu. Chọn theo cảm nhận đầu tiên của bạn.",
+  "endpoint": "",
+  "questions": [
+    {
+      "id": "q1",
+      "section": "Về bạn",
+      "type": "single",
+      "text": "Bạn học trên web này chủ yếu để làm gì?",
+      "options": [
+        "Nâng cao kỹ năng công việc",
+        "Chuyển nghề",
+        "Thi chứng chỉ",
+        "Sở thích cá nhân",
+        "Khác"
+      ]
+    },
+    {
+      "id": "q2",
+      "type": "single",
+      "text": "Bạn thường học bằng thiết bị nào?",
+      "options": [
+        "Điện thoại",
+        "Máy tính bảng",
+        "Máy tính",
+        "Tùy lúc"
+      ]
+    },
+    {
+      "id": "q3",
+      "type": "single",
+      "text": "Mỗi lần học, bạn thường học bao lâu?",
+      "options": [
+        "Dưới 15 phút",
+        "15 đến 30 phút",
+        "30 đến 60 phút",
+        "Trên 60 phút"
+      ]
+    },
+    {
+      "id": "q4",
+      "section": "Tìm và chọn khóa học",
+      "type": "scale",
+      "min": 1,
+      "max": 5,
+      "minLabel": "Rất khó",
+      "maxLabel": "Rất dễ",
+      "text": "Bạn thấy việc tìm được khóa học mình cần dễ đến mức nào?"
+    },
+    {
+      "id": "q5",
+      "type": "multi",
+      "max": 2,
+      "text": "Khi chọn khóa học, bạn dựa vào điều gì nhất?",
+      "options": [
+        "Giá",
+        "Giảng viên",
+        "Đánh giá của người học",
+        "Mô tả nội dung",
+        "Học thử miễn phí",
+        "Chứng chỉ",
+        "Khác"
+      ]
+    },
+    {
+      "id": "q6",
+      "type": "single",
+      "text": "Trang giới thiệu khóa học đã đủ thông tin để bạn quyết định chưa?",
+      "options": [
+        "Đủ",
+        "Tạm đủ",
+        "Còn thiếu"
+      ]
+    },
+    {
+      "id": "q6b",
+      "type": "text",
+      "optional": true,
+      "text": "Nếu còn thiếu, bạn muốn xem thêm gì?"
+    },
+    {
+      "id": "q7",
+      "section": "Đăng ký và thanh toán",
+      "type": "scale",
+      "min": 1,
+      "max": 5,
+      "minLabel": "Rất rườm rà",
+      "maxLabel": "Rất thuận tiện",
+      "text": "Việc đăng ký tài khoản và thanh toán thuận tiện đến mức nào?"
+    },
+    {
+      "id": "q8",
+      "type": "single",
+      "text": "Bạn từng định mua khóa học nhưng bỏ dở giữa chừng chưa? Lý do chính là gì?",
+      "options": [
+        "Chưa từng",
+        "Giá cao",
+        "Thanh toán rắc rối",
+        "Chưa đủ tin tưởng",
+        "Cần so sánh thêm",
+        "Khác"
+      ]
+    },
+    {
+      "id": "q9",
+      "section": "Trải nghiệm học",
+      "type": "scale",
+      "min": 1,
+      "max": 5,
+      "minLabel": "Rất tệ",
+      "maxLabel": "Rất tốt",
+      "text": "Video bài giảng xem có mượt và rõ ràng không?"
+    },
+    {
+      "id": "q10",
+      "type": "single",
+      "text": "Theo bạn, một video bài giảng dài bao lâu là vừa?",
+      "options": [
+        "Dưới 5 phút",
+        "5 đến 10 phút",
+        "10 đến 20 phút",
+        "Trên 20 phút"
+      ]
+    },
+    {
+      "id": "q11",
+      "type": "scale",
+      "min": 1,
+      "max": 5,
+      "minLabel": "Rất khó",
+      "maxLabel": "Rất dễ",
+      "text": "Quay lại học tiếp đúng chỗ đang học dở có dễ không?"
+    },
+    {
+      "id": "q12",
+      "type": "multi",
+      "text": "Bạn đã dùng những tính năng nào?",
+      "options": [
+        "Ghi chú",
+        "Tải tài liệu",
+        "Bài kiểm tra",
+        "Hỏi đáp với giảng viên",
+        "Chứng chỉ",
+        "Chỉnh tốc độ video",
+        "Khác"
+      ]
+    },
+    {
+      "id": "q13",
+      "type": "scale",
+      "min": 1,
+      "max": 5,
+      "minLabel": "Không giúp gì",
+      "maxLabel": "Giúp rất nhiều",
+      "text": "Bài tập và bài kiểm tra giúp bạn hiểu bài đến mức nào?"
+    },
+    {
+      "id": "q14",
+      "type": "single",
+      "text": "Khi gặp chỗ không hiểu, bạn thường làm gì?",
+      "options": [
+        "Hỏi ngay trong khóa học",
+        "Tìm câu trả lời bên ngoài",
+        "Tạm bỏ qua",
+        "Ngừng học"
+      ]
+    },
+    {
+      "id": "q15",
+      "type": "single",
+      "text": "Bạn từng ngừng học một khóa giữa chừng chưa? Lý do chính là gì?",
+      "options": [
+        "Chưa từng",
+        "Hết thời gian",
+        "Nội dung không phù hợp",
+        "Khó theo dõi",
+        "Mất động lực",
+        "Web khó dùng",
+        "Khác"
+      ]
+    },
+    {
+      "id": "q16",
+      "section": "Đánh giá chung",
+      "type": "scale",
+      "min": 0,
+      "max": 10,
+      "minLabel": "Không bao giờ",
+      "maxLabel": "Chắc chắn có",
+      "text": "Bạn sẵn lòng giới thiệu web này cho bạn bè đến mức nào?"
+    },
+    {
+      "id": "q17",
+      "type": "scale",
+      "min": 1,
+      "max": 5,
+      "minLabel": "Rất không hài lòng",
+      "maxLabel": "Rất hài lòng",
+      "text": "Nhìn chung, bạn hài lòng với trải nghiệm trên web đến mức nào?"
+    },
+    {
+      "id": "q18",
+      "type": "text",
+      "optional": true,
+      "text": "Nếu chỉ được sửa một điều trên web, bạn muốn sửa điều gì?"
+    }
+  ]
+}
