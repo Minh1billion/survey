@@ -4,11 +4,14 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Khảo sát trải nghiệm học online</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700;800&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#46178f;--bg2:#331166;--ink:#333;--red:#e21b3c;--blue:#1368ce;--yel:#d89e00;--grn:#26890c}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{height:100%;margin:0}
-body{background:var(--bg);color:#fff;font:700 17px/1.4 "Montserrat","Trebuchet MS",system-ui,sans-serif;display:flex;flex-direction:column}
+body{background:var(--bg);color:#fff;font:700 17px/1.4 "Montserrat","Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;display:flex;flex-direction:column}
 #top{display:flex;align-items:center;gap:12px;padding:12px 16px}
 #top .pill{background:rgba(0,0,0,.28);border-radius:999px;padding:6px 14px;font-size:.9rem;white-space:nowrap}
 #top .bar{flex:1;height:10px;background:rgba(0,0,0,.28);border-radius:99px;overflow:hidden}
@@ -32,9 +35,9 @@ main{flex:1;display:flex;flex-direction:column;max-width:760px;width:100%;margin
 .nums{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
 .nums .tile{flex:1 0 64px;min-height:72px;justify-content:center;font-size:1.5rem;font-weight:800}
 .ends{display:flex;justify-content:space-between;margin-top:12px;font-size:.85rem;opacity:.85}
-textarea{width:100%;min-height:150px;border:0;border-radius:6px;padding:14px;font:600 1rem/1.5 inherit;color:var(--ink);box-shadow:inset 0 -6px 0 rgba(0,0,0,.15);resize:vertical}
+textarea{width:100%;min-height:150px;border:0;border-radius:6px;padding:14px;font-family:inherit;font-weight:600;font-size:1rem;line-height:1.5;color:var(--ink);box-shadow:inset 0 -6px 0 rgba(0,0,0,.15);resize:vertical}
 .foot{margin-top:16px;display:flex;justify-content:center}
-.btn{background:#fff;color:var(--ink);border:0;border-radius:6px;padding:14px 36px;font:800 1.1rem inherit;cursor:pointer;box-shadow:0 4px 0 rgba(0,0,0,.3);min-width:200px}
+.btn{background:#fff;color:var(--ink);border:0;border-radius:6px;padding:14px 36px;font-family:inherit;font-weight:800;font-size:1.1rem;cursor:pointer;box-shadow:0 4px 0 rgba(0,0,0,.3);min-width:200px}
 .btn:active{transform:translateY(3px);box-shadow:none}
 .btn:disabled{opacity:.4;cursor:not-allowed}
 .btn.big{background:var(--grn);color:#fff;font-size:1.3rem;padding:18px 48px}
