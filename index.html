@@ -91,7 +91,12 @@ let cfg, ans = {}, idx = -1;
 
 function h(tag, attrs, ...kids){
   const e = document.createElement(tag);
-  for (const k in (attrs||{})) k==='class' ? e.className = attrs[k] : e.setAttribute(k, attrs[k]);
+  for (const k in (attrs||{})){
+    const v = attrs[k];
+    if (typeof v === 'function') e[k] = v;
+    else if (k === 'class') e.className = v;
+    else e.setAttribute(k, v);
+  }
   kids.flat().forEach(c => e.append(c));
   return e;
 }
