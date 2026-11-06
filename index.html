@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Khảo sát trải nghiệm học online</title>
+<style>
+:root{--bg:#46178f;--bg2:#331166;--ink:#333;--red:#e21b3c;--blue:#1368ce;--yel:#d89e00;--grn:#26890c}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;margin:0}
+body{background:var(--bg);color:#fff;font:700 17px/1.4 "Montserrat","Trebuchet MS",system-ui,sans-serif;display:flex;flex-direction:column}
+#top{display:flex;align-items:center;gap:12px;padding:12px 16px}
+#top .pill{background:rgba(0,0,0,.28);border-radius:999px;padding:6px 14px;font-size:.9rem;white-space:nowrap}
+#top .bar{flex:1;height:10px;background:rgba(0,0,0,.28);border-radius:99px;overflow:hidden}
+#top .bar i{display:block;height:100%;width:0;background:#fff;border-radius:99px;transition:width .3s}
+#back{background:rgba(0,0,0,.28);color:#fff;border:0;border-radius:999px;width:38px;height:38px;font:inherit;cursor:pointer}
+#back[hidden]{visibility:hidden;display:block}
+main{flex:1;display:flex;flex-direction:column;max-width:760px;width:100%;margin:0 auto;padding:8px 16px 20px;animation:in .25s ease-out}
+@keyframes in{from{opacity:0;transform:translateX(24px)}}
+@media (prefers-reduced-motion:reduce){main{animation:none}}
+.sec{align-self:center;background:rgba(0,0,0,.28);border-radius:999px;padding:4px 14px;font-size:.85rem;margin-bottom:10px}
+.qcard{background:#fff;color:var(--ink);border-radius:8px;padding:22px 18px;text-align:center;font-size:clamp(1.15rem,4.2vw,1.6rem);font-weight:800;box-shadow:0 4px 0 rgba(0,0,0,.25);margin-bottom:16px}
+.hint{display:block;font-size:.8rem;font-weight:600;color:#777;margin-top:6px}
+.tiles{flex:1;display:grid;grid-template-columns:1fr 1fr;gap:10px;align-content:start}
+.tile{display:flex;align-items:center;gap:12px;min-height:84px;padding:12px 14px;border:0;border-radius:6px;color:#fff;font:inherit;font-size:1.05rem;text-align:left;cursor:pointer;box-shadow:inset 0 -6px 0 rgba(0,0,0,.25);transition:transform .08s,opacity .15s}
+.tile:active{transform:translateY(3px)}
+.tile .sh{font-size:1.6rem;width:34px;text-align:center;flex:none}
+.tile.on{outline:4px solid #fff;outline-offset:-4px}
+.tiles.has .tile:not(.on){opacity:.5}
+.tile:disabled{opacity:.35;cursor:not-allowed}
+.tile:focus-visible,.btn:focus-visible,#back:focus-visible{outline:4px solid #fff;outline-offset:2px}
+.nums{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
+.nums .tile{flex:1 0 64px;min-height:72px;justify-content:center;font-size:1.5rem;font-weight:800}
+.ends{display:flex;justify-content:space-between;margin-top:12px;font-size:.85rem;opacity:.85}
+textarea{width:100%;min-height:150px;border:0;border-radius:6px;padding:14px;font:600 1rem/1.5 inherit;color:var(--ink);box-shadow:inset 0 -6px 0 rgba(0,0,0,.15);resize:vertical}
+.foot{margin-top:16px;display:flex;justify-content:center}
+.btn{background:#fff;color:var(--ink);border:0;border-radius:6px;padding:14px 36px;font:800 1.1rem inherit;cursor:pointer;box-shadow:0 4px 0 rgba(0,0,0,.3);min-width:200px}
+.btn:active{transform:translateY(3px);box-shadow:none}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+.btn.big{background:var(--grn);color:#fff;font-size:1.3rem;padding:18px 48px}
+.center{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:18px}
+.center h1{font-size:clamp(1.8rem,7vw,2.8rem);margin:0;line-height:1.15}
+.center p{margin:0;font-weight:600;max-width:460px;opacity:.9}
+.logo{display:flex;gap:8px;font-size:2rem}
+.logo span:nth-child(1){color:#ff6b81}.logo span:nth-child(2){color:#6fb1ff}.logo span:nth-child(3){color:#ffd24d}.logo span:nth-child(4){color:#7ddc5a}
+.admin{font-weight:600}
+.admin textarea{min-height:200px;font:13px/1.4 ui-monospace,Menlo,monospace}
+.row{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0}
+.msg{color:#ffd24d}
+@media (max-width:420px){.tiles{grid-template-columns:1fr}.tile{min-height:68px}}
+</style>
+</head>
+<body>
+<div id="top"><button id="back" aria-label="Quay lại" hidden>&#8592;</button><div class="bar"><i id="prog"></i></div><div class="pill" id="count"></div></div>
+<main id="app"></main>
+
+<script>
+/* ===== Bộ câu hỏi mặc định. Có thể thay bằng questions.json, ?src=đường-dẫn, hoặc gọi loadSurvey(json) =====
+   Loại: single (một đáp án), multi (nhiều đáp án, có max), scale (min..max), text (mở). "optional": true nếu không bắt buộc. */
+const DEFAULT = {
+  version: "1.0",
+  title: "Khảo sát trải nghiệm học online",
+  intro: "Khoảng 3 phút, mỗi lần một câu. Chọn theo cảm nhận đầu tiên của bạn.",
+  endpoint: "",
+  questions: [
+    {id:"q1",section:"Về bạn",type:"single",text:"Bạn học trên web này chủ yếu để làm gì?",options:["Nâng cao kỹ năng công việc","Chuyển nghề","Thi chứng chỉ","Sở thích cá nhân","Khác"]},
+    {id:"q2",type:"single",text:"Bạn thường học bằng thiết bị nào?",options:["Điện thoại","Máy tính bảng","Máy tính","Tùy lúc"]},
+    {id:"q3",type:"single",text:"Mỗi lần học, bạn thường học bao lâu?",options:["Dưới 15 phút","15 đến 30 phút","30 đến 60 phút","Trên 60 phút"]},
+    {id:"q4",section:"Tìm và chọn khóa học",type:"scale",min:1,max:5,minLabel:"Rất khó",maxLabel:"Rất dễ",text:"Bạn thấy việc tìm được khóa học mình cần dễ đến mức nào?"},
+    {id:"q5",type:"multi",max:2,text:"Khi chọn khóa học, bạn dựa vào điều gì nhất?",options:["Giá","Giảng viên","Đánh giá của người học","Mô tả nội dung","Học thử miễn phí","Chứng chỉ","Khác"]},
+    {id:"q6",type:"single",text:"Trang giới thiệu khóa học đã đủ thông tin để bạn quyết định chưa?",options:["Đủ","Tạm đủ","Còn thiếu"]},
+    {id:"q6b",type:"text",optional:true,text:"Nếu còn thiếu, bạn muốn xem thêm gì?"},
+    {id:"q7",section:"Đăng ký và thanh toán",type:"scale",min:1,max:5,minLabel:"Rất rườm rà",maxLabel:"Rất thuận tiện",text:"Việc đăng ký tài khoản và thanh toán thuận tiện đến mức nào?"},
+    {id:"q8",type:"single",text:"Bạn từng định mua khóa học nhưng bỏ dở giữa chừng chưa? Lý do chính là gì?",options:["Chưa từng","Giá cao","Thanh toán rắc rối","Chưa đủ tin tưởng","Cần so sánh thêm","Khác"]},
+    {id:"q9",section:"Trải nghiệm học",type:"scale",min:1,max:5,minLabel:"Rất tệ",maxLabel:"Rất tốt",text:"Video bài giảng xem có mượt và rõ ràng không?"},
+    {id:"q10",type:"single",text:"Theo bạn, một video bài giảng dài bao lâu là vừa?",options:["Dưới 5 phút","5 đến 10 phút","10 đến 20 phút","Trên 20 phút"]},
+    {id:"q11",type:"scale",min:1,max:5,minLabel:"Rất khó",maxLabel:"Rất dễ",text:"Quay lại học tiếp đúng chỗ đang học dở có dễ không?"},
+    {id:"q12",type:"multi",text:"Bạn đã dùng những tính năng nào?",options:["Ghi chú","Tải tài liệu","Bài kiểm tra","Hỏi đáp với giảng viên","Chứng chỉ","Chỉnh tốc độ video","Khác"]},
+    {id:"q13",type:"scale",min:1,max:5,minLabel:"Không giúp gì",maxLabel:"Giúp rất nhiều",text:"Bài tập và bài kiểm tra giúp bạn hiểu bài đến mức nào?"},
+    {id:"q14",type:"single",text:"Khi gặp chỗ không hiểu, bạn thường làm gì?",options:["Hỏi ngay trong khóa học","Tìm câu trả lời bên ngoài","Tạm bỏ qua","Ngừng học"]},
+    {id:"q15",type:"single",text:"Bạn từng ngừng học một khóa giữa chừng chưa? Lý do chính là gì?",options:["Chưa từng","Hết thời gian","Nội dung không phù hợp","Khó theo dõi","Mất động lực","Web khó dùng","Khác"]},
+    {id:"q16",section:"Đánh giá chung",type:"scale",min:0,max:10,minLabel:"Không bao giờ",maxLabel:"Chắc chắn có",text:"Bạn sẵn lòng giới thiệu web này cho bạn bè đến mức nào?"},
+    {id:"q17",type:"scale",min:1,max:5,minLabel:"Rất không hài lòng",maxLabel:"Rất hài lòng",text:"Nhìn chung, bạn hài lòng với trải nghiệm trên web đến mức nào?"},
+    {id:"q18",type:"text",optional:true,text:"Nếu chỉ được sửa một điều trên web, bạn muốn sửa điều gì?"}
+  ]
+};
+
+const $ = s => document.querySelector(s), app = $('#app');
+const LS = 'survey_responses', COL = ['#e21b3c','#1368ce','#d89e00','#26890c'], SHP = ['▲','◆','●','■'];
+let cfg, ans = {}, idx = -1;
+
+function h(tag, attrs, ...kids){
+  const e = document.createElement(tag);
+  for (const k in (attrs||{})) k==='class' ? e.className = attrs[k] : e.setAttribute(k, attrs[k]);
+  kids.flat().forEach(c => e.append(c));
+  return e;
+}
+const store = {
+  all(){ try{ return JSON.parse(localStorage.getItem(LS)||'[]'); }catch(e){ return []; } },
+  add(r){ try{ const a=this.all(); a.push(r); localStorage.setItem(LS, JSON.stringify(a)); }catch(e){} },
+  clear(){ try{ localStorage.removeItem(LS); }catch(e){} }
+};
+
+/* ===== Cổng nạp câu hỏi ===== */
+async function boot(){
+  const p = new URLSearchParams(location.search);
+  if (location.hash === '#admin') return admin();
+  let c = DEFAULT;
+  try{ const r = await fetch(p.get('src') || 'questions.json'); if (r.ok) c = await r.json(); }catch(e){}
+  loadSurvey(c);
+}
+window.loadSurvey = function(c){
+  if (typeof c === 'string') c = JSON.parse(c);
+  if (!c || !Array.isArray(c.questions)) throw new Error('JSON cần có mảng "questions"');
+  cfg = c; ans = {}; go(-1);
+};
+
+/* ===== Điều hướng và hiển thị ===== */
+function go(i){
+  idx = i; const n = cfg.questions.length;
+  const m = app.cloneNode(false); app.replaceWith(m); m.id = 'app';
+  $('#back').hidden = !(i > 0 && i < n);
+  $('#back').onclick = () => go(idx - 1);
+  $('#prog').style.width = Math.max(0, Math.min(i, n)) / n * 100 + '%';
+  $('#count').textContent = (i >= 0 && i < n) ? `${i+1} / ${n}` : '';
+  $('#count').hidden = !$('#count').textContent;
+  if (i < 0) return start();
+  if (i >= n) return finish();
+  question(cfg.questions[i]);
+}
+const A = () => document.getElementById('app');
+const next = () => go(idx + 1);
+const has = q => { const v = ans[q.id]; return Array.isArray(v) ? v.length > 0 : (v !== undefined && v !== ''); };
+
+function start(){
+  document.title = cfg.title || document.title;
+  A().append(h('div',{class:'center'},
+    h('div',{class:'logo'}, ...SHP.map(s => h('span',{},s))),
+    h('h1',{},cfg.title||'Khảo sát'),
+    h('p',{},cfg.intro||''),
+    h('button',{class:'btn big',onclick:next},'Bắt đầu')));
+}
+
+function question(q){
+  const m = A(), prev = ans[q.id];
+  if (q.section) m.append(h('div',{class:'sec'},q.section));
+  const hint = q.type==='multi' ? (q.max ? `Chọn tối đa ${q.max}` : 'Chọn nhiều đáp án') : (q.optional ? 'Không bắt buộc' : '');
+  m.append(h('div',{class:'qcard'}, q.text, hint ? h('span',{class:'hint'},hint) : ''));
+
+  if (q.type === 'single'){
+    const w = h('div',{class:'tiles'+(has(q)?' has':'')});
+    q.options.forEach((o,k) => {
+      const b = tile(o, k); if (prev === o) b.classList.add('on');
+      b.onclick = () => { ans[q.id] = o; w.classList.add('has'); w.querySelectorAll('.tile').forEach(t => t.classList.toggle('on', t === b)); setTimeout(next, 280); };
+      w.append(b);
+    });
+    m.append(w);
+  } else if (q.type === 'multi'){
+    const w = h('div',{class:'tiles'}), nx = h('button',{class:'btn'},'Tiếp');
+    const sync = () => {
+      const v = [...w.querySelectorAll('.on')].map(t => t.dataset.v);
+      ans[q.id] = v; nx.disabled = !q.optional && !v.length;
+      w.querySelectorAll('.tile:not(.on)').forEach(t => t.disabled = !!q.max && v.length >= q.max);
+    };
+    q.options.forEach((o,k) => {
+      const b = tile(o, k); b.dataset.v = o; if (prev && prev.includes(o)) b.classList.add('on');
+      b.onclick = () => { b.classList.toggle('on'); sync(); }; w.append(b);
+    });
+    nx.onclick = next; m.append(w, h('div',{class:'foot'},nx)); sync();
+  } else if (q.type === 'scale'){
+    const mn = q.min ?? 1, mx = q.max ?? 5, w = h('div',{class:'nums'+(has(q)?' has':'')});
+    for (let i = mn; i <= mx; i++){
+      const b = h('button',{class:'tile'}, String(i));
+      b.style.background = `hsl(${(i-mn)/(mx-mn||1)*120} 72% 40%)`;
+      if (prev === i) b.classList.add('on');
+      b.onclick = () => { ans[q.id] = i; w.querySelectorAll('.tile').forEach(t => t.classList.toggle('on', t === b)); setTimeout(next, 280); };
+      w.append(b);
+    }
+    m.append(w, h('div',{class:'ends'}, h('span',{},q.minLabel||''), h('span',{},q.maxLabel||'')));
+  } else {
+    const t = h('textarea',{placeholder:'Gõ câu trả lời của bạn'}), nx = h('button',{class:'btn'},'Tiếp');
+    t.value = prev || '';
+    const sync = () => { ans[q.id] = t.value.trim(); nx.disabled = !q.optional && !ans[q.id]; nx.textContent = (!ans[q.id] && q.optional) ? 'Bỏ qua' : 'Tiếp'; };
+    t.oninput = sync; nx.onclick = next; m.append(t, h('div',{class:'foot'},nx)); sync();
+  }
+}
+function tile(label, k){
+  const b = h('button',{class:'tile'}, h('span',{class:'sh'},SHP[k%4]), h('span',{},label));
+  b.style.background = COL[k%4]; return b;
+}
+
+/* ===== Gửi và lưu ===== */
+async function finish(){
+  A().append(h('div',{class:'center'}, h('div',{class:'logo'},'✓'), h('h1',{},'Cảm ơn bạn!'), h('p',{},'Phản hồi của bạn đã được ghi nhận.')));
+  const rec = { submittedAt:new Date().toISOString(), surveyVersion:cfg.version||'', device:innerWidth<700?'mobile':'desktop', answers:ans };
+  store.add(rec);
+  if (cfg.endpoint){
+    try{ await fetch(cfg.endpoint,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(rec)}); }catch(e){}
+  }
+}
+
+/* ===== Trang quản lý: thêm #admin vào địa chỉ ===== */
+function admin(){
+  const rows = store.all(), ta = h('textarea',{placeholder:'Dán JSON bộ câu hỏi vào đây để xem thử'}), msg = h('div',{class:'msg'});
+  $('#count').hidden = true; $('#back').hidden = true;
+  A().append(h('div',{class:'admin'},
+    h('h1',{},'Quản lý'),
+    h('p',{}, `Trình duyệt này đang giữ ${rows.length} phản hồi.`),
+    h('div',{class:'row'},
+      h('button',{class:'btn',onclick:()=>save('responses.json',JSON.stringify(rows,null,2),'application/json')},'Tải JSON'),
+      h('button',{class:'btn',onclick:()=>save('responses.csv',csv(rows),'text/csv')},'Tải CSV'),
+      h('button',{class:'btn',onclick:()=>{ if(confirm('Xóa toàn bộ phản hồi trong trình duyệt này?')){ store.clear(); location.reload(); } }},'Xóa')),
+    h('h2',{},'Thử bộ câu hỏi mới'), ta,
+    h('div',{class:'row'}, h('button',{class:'btn',onclick:()=>{ try{ history.replaceState(null,'',location.pathname+location.search); loadSurvey(ta.value); }catch(e){ msg.textContent='JSON chưa hợp lệ: '+e.message; } }},'Xem thử')), msg));
+}
+function csv(rows){
+  const ids = (cfg ? cfg.questions : DEFAULT.questions).map(q => q.id);
+  const e = v => '"' + String(v ?? '').replace(/"/g,'""') + '"';
+  return [['submittedAt','device',...ids].map(e).join(','), ...rows.map(r => [r.submittedAt,r.device,...ids.map(i => Array.isArray(r.answers[i]) ? r.answers[i].join('|') : r.answers[i])].map(e).join(','))].join('\n');
+}
+function save(name, text, type){ h('a',{href:URL.createObjectURL(new Blob(['\ufeff'+text],{type})),download:name}).click(); }
+window.addEventListener('hashchange', () => location.reload());
+boot();
+</script>
+</body>
+</html>
